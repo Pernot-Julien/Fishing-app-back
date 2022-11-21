@@ -1,0 +1,8 @@
+{
+  "name": "Fishing-app-back",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Pernot-Julien/Fishing-app-back.git",
+  "author": "Raphael-Aldaz <raphael.aldaz@gmail.com>",
+  "license": "MIT"
+}
