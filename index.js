@@ -1,13 +1,14 @@
-import { createConnection } from 'mysql';
+const mysql = require('mysql')
 
-const db = createConnection({
+const db = mysql.createConnection({
   host:"caracal.o2switch.net",
-  database:"okgb8219_test",
-  user:"okgb8219_raphe",
-  password:"9[b{4MXrb1x#"
+  database:"okgb8219_ProjetPeche",
+  user:"okgb8219_raphael",
+  password:"0zZ+HN@YF+?Y"
 });
-db.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-    db.end();
-  });
+db.connect();
+db.query(`SELECT * FROM User`, function(error, rows,fields) {
+  if(error) throw error;
+  console.log(rows[0])
+} )
+db.end();
