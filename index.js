@@ -1,6 +1,6 @@
-const mysql = require('mysql')
+import { createConnection } from 'mysql';
 
-const db = mysql.createConnection({
+const db = createConnection({
   host:"caracal.o2switch.net",
   database:"okgb8219_test",
   user:"okgb8219_raphe",
@@ -11,4 +11,3 @@ db.connect(function(err) {
     console.log("Connected!");
     db.end();
   });
-  /* 9[b{4MXrb1x# */

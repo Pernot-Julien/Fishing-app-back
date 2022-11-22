@@ -5,6 +5,7 @@
   "repository": "git@github.com:Pernot-Julien/Fishing-app-back.git",
   "author": "Raphael-Aldaz <raphael.aldaz@gmail.com>",
   "license": "MIT",
+  "type": "module",
   "dependencies": {
     "mysql": "^2.18.1",
     "nodemon": "^2.0.20"
