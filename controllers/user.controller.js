@@ -51,3 +51,45 @@ exports.delete = (req,res) => {
     } else res.send({message: "User Deleted"});
   })
 }
+
+exports.update =(req,res) => {
+  if(!req.body) {
+    res.status(400).send({
+      message:"Can't be empty!"
+    });
+  }
+  User.updateById(
+    req.params.userId,
+    new User(req.body),
+    (err,data) => {
+      if(err){
+        if(err.kind === "not found") {
+          res.status(404).send({
+            message: `Not found user with the id ${req.params.userId}`
+          });
+        } else {
+          res.status(500).send({
+            message: "error updating "
+          })
+        }
+      } else res.send(data)
+    }
+    )
+}
+
+exports.findOne =(req,res) => {
+  User.findById(req.params.userId, (err, data) => {
+    if(err) {
+      if(err.kind === 'not found') {
+        res.status(404).send({
+          message:'User not found'
+        });
+      } else {
+        res.status(500).send({
+          message: "Error" + req.params.userId
+        });
+      }
+    } else res.send(data);
+  });
+};
+

@@ -37,7 +37,6 @@ class User {
         return;
       }
       if (res.affectedRows == 0) {
-        // not found employee with the id
         result({ kind: "not_found" }, null);
         return;
       }
@@ -45,68 +44,43 @@ class User {
       result(null, res);
     });
   }
+
+  static updateById(id,user,result) {
+    sql.query("UPDATE User SET email = ?, username = ?, password = ? WHERE id =?", [user.email, user.username, user.password, id], 
+    (err, res) => {
+      if(err){
+        console.log("error update", err);
+        result(null,err);
+        return;
+      } 
+      if(res.affectedRows == 0) {
+        result({kind: "not found"}, null);
+        return;
+      }
+      console.log("upadated user: ", {id: id, ...user});
+      result(null,{id: id, ...user});
+    }
+    )
+  }
+
+  static findById = (userId, result) => {
+    sql.query(`SELECT * FROM User WHERE id = ${userId}`, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+  
+      if (res.length) {
+        console.log("found user: ", res[0]);
+        result(null, res[0]);
+        return;
+      }
+  
+      // not found employee with the id
+      result({ kind: "not_found" }, null);
+    });
+  };
+
 }
-
-/*
-  static updateById(id, employee, result) {
-    sql.query(
-      "UPDATE employee SET designation = ?, doj = ?, name = ?, salary = ? WHERE id = ?",
-      [employee.designation, employee.doj, employee.name, employee.salary, id],
-      (err, res) => {
-        if (err) {
-          console.log("error: ", err);
-          result(null, err);
-          return;
-        }
-
-        if (res.affectedRows == 0) {
-          // not found employee with the id
-          result({ kind: "not_found" }, null);
-          return;
-        }
-
-        console.log("updated employee: ", { id: id, ...employee });
-        result(null, { id: id, ...employee });
-      }
-    );
-  }
-  static remove(id, result) {
-    sql.query("DELETE FROM employee WHERE id = ?", id, (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(null, err);
-        return;
-      }
-
-      if (res.affectedRows == 0) {
-        // not found employee with the id
-        result({ kind: "not_found" }, null);
-        return;
-      }
-
-      console.log("deleted employee with id: ", id);
-      result(null, res);
-    });
-  }
-  static removeAll(result) {
-    sql.query("DELETE FROM employee", (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(null, err);
-        return;
-      }
-
-      console.log(`deleted ${res.affectedRows} employees`);
-      result(null, res);
-    });
-  }
-} */
-
-
-
-
-
-
-
-
 module.exports = User;
